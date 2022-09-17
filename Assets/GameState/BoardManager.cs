@@ -79,6 +79,8 @@ public class BoardManager : MonoBehaviour
     public void turnHelper(int unforcedSpawn, int forcedSafeSpawn, int forcedUnsafeSpawn)
     {
         (int, int) portalPosition = (Random.Range(0, MAP_SIZE), Random.Range(0, MAP_SIZE));
+        map[portalPosition.Item1, portalPosition.Item2] = new Portal(portalPosition.Item1, portalPosition.Item2);
+        
         /*
         for (int i = 0; i < MAP_SIZE; ++i) 
         {
