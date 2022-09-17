@@ -230,7 +230,7 @@ namespace TarodevController {
 
         private void CalculateJump() {
             // Jump if: grounded or within coyote threshold || sufficient jump buffer
-            if (Input.JumpDown && CanUseCoyote || HasBufferedJump || (Input.JumpDown && )) {
+            if (Input.JumpDown && CanUseCoyote || HasBufferedJump || (Input.JumpDown && (_colRight || _colLeft))) {
                 _currentVerticalSpeed = _jumpHeight;
                 _endedJumpEarly = false;
                 _coyoteUsable = false;
