@@ -7,6 +7,8 @@ public class BoardManager : MonoBehaviour
     const int MAP_SIZE = 16;
     const int OBSTACLE_AMOUNT = 1;
 
+    int turnnum = 0;
+
     Obstacle[] obstacles = new Obstacle[OBSTACLE_AMOUNT];	
 
     public Tile[,] map = new Tile[MAP_SIZE, MAP_SIZE];
@@ -68,8 +70,28 @@ public class BoardManager : MonoBehaviour
         return false;
     }
 
-    public void turn(int unforcedSpawn, int forcedSafeSpawn, int forcedUnsafeSpawn)
+    public void turn()
     {
+        turnHelper(3 * turnnum/2, turnnum, turnnum/2);
+        ++turnnum;
+    }
+
+    public void turnHelper(int unforcedSpawn, int forcedSafeSpawn, int forcedUnsafeSpawn)
+    {
+        (int, int) portalPosition = (Random.Range(0, MAP_SIZE), Random.Range(0, MAP_SIZE));
+        map[portalPosition.Item1, portalPosition.Item2] = new Portal(portalPosition.Item1, portalPosition.Item2);
+        
+        /*
+        for (int i = 0; i < MAP_SIZE; ++i) 
+        {
+            for(int j = 0; j < MAP_SIZE; ++j)
+            {
+                int portalX = (portalPosition.Item1 + i) % MAP_SIZE;
+                int portalY = (portalPosition.Item2 + j) % MAP_SIZE;
+
+
+            }
+        }*/
         for (int spawns = 0; spawns < unforcedSpawn; spawns++)
         {
             Obstacle ob = obstacles[Random.Range(0, OBSTACLE_AMOUNT)];
@@ -85,7 +107,9 @@ public class BoardManager : MonoBehaviour
                         int x = ob.getRelX() + i;
                         int y = ob.getRelY() + i;
                         occupied[i,j] = true;
-                        map[i,j] = ob.get(i, j);
+                        map[x,y] = ob.get(i, j);
+                        map[x,y].x = x;
+                        map[x,y].x = y;
                     }
                 }
             }
@@ -107,7 +131,9 @@ public class BoardManager : MonoBehaviour
 
                     if (map[i,j] == null)
                     {
-                        map[i,j] = ob.get(i, j);
+                        map[x,y] = ob.get(i, j);
+                        map[x,y].x = x;
+                        map[x,y].x = y;
                     }
                 }
             }
@@ -127,10 +153,9 @@ public class BoardManager : MonoBehaviour
                     int y = ob.getRelY() + i;
                     occupied[i,j] = true;
 
-                    if (map[i,j] == null)
-                    {
-                        map[i,j] = ob.get(i, j);
-                    }
+                    map[x,y] = ob.get(i, j);
+                    map[x,y].x = x;
+                    map[x,y].x = y;
                 }
             }
         }

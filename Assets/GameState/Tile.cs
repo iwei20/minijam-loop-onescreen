@@ -15,7 +15,7 @@ public abstract class Tile
         this.y = y;
     }	
 
-    public abstract void onCollision();
+    public abstract void onCollision(BoardManager bm);
 
     public abstract bool passable();
 }
