@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Portal : Tile
 {
-    public Portal(int x, int y) 
+    public Portal(int x, int y) : base(x, y)
     {
-        super(x, y);
-        super.tag = "portal";
+        base.tag = "portal";
     }
-    
+
     public override void onCollision(BoardManager bm) {
-        BoardManager.turn();
+        bm.turn();
     }
 
     public override bool passable() {
