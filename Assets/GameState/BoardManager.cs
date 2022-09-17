@@ -7,6 +7,8 @@ public class BoardManager : MonoBehaviour
     const int MAP_SIZE = 16;
     const int OBSTACLE_AMOUNT = 1;
 
+    int turnnum = 0;
+
     Obstacle[] obstacles = new Obstacle[OBSTACLE_AMOUNT];	
 
     public Tile[,] map = new Tile[MAP_SIZE, MAP_SIZE];
@@ -68,7 +70,13 @@ public class BoardManager : MonoBehaviour
         return false;
     }
 
-    public void turn(int unforcedSpawn, int forcedSafeSpawn, int forcedUnsafeSpawn)
+    public void turn()
+    {
+        turnHelper(3 * turnnum/2, turnnum, turnnum/2);
+        ++turnnum;
+    }
+
+    public void turnHelper(int unforcedSpawn, int forcedSafeSpawn, int forcedUnsafeSpawn)
     {
         (int, int) portalPosition = (Random.Range(0, MAP_SIZE), Random.Range(0, MAP_SIZE));
         /*
