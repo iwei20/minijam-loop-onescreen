@@ -6,7 +6,7 @@ public class Wall : Tile
 {
     public Wall(int x, int y) : base(x, y)
     {
-        this.tag = "wall";
+        base.tag = "wall";
     }	
 
     public override void onCollision() {}
