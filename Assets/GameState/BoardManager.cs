@@ -52,7 +52,7 @@ public class BoardManager : MonoBehaviour
             {
                 return true;
             }
-            
+
             for (int i = 0; i < 4; ++i) 
             {   
                 int newX = (curr.Item1 + dx[i]) % MAP_SIZE;
@@ -60,7 +60,7 @@ public class BoardManager : MonoBehaviour
 
                 if (!visited[newX,newY]) 
                 {
-                    dfs.Push((newX, newY))
+                    dfs.Push((newX, newY));
                     visited[newX,newY] = true;
                 }
             }
