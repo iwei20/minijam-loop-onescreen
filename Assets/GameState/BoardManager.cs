@@ -85,7 +85,9 @@ public class BoardManager : MonoBehaviour
                         int x = ob.getRelX() + i;
                         int y = ob.getRelY() + i;
                         occupied[i,j] = true;
-                        map[i,j] = ob.get(i, j);
+                        map[x,y] = ob.get(i, j);
+                        map[x,y].x = x;
+                        map[x,y].x = y;
                     }
                 }
             }
@@ -107,7 +109,9 @@ public class BoardManager : MonoBehaviour
 
                     if (map[i,j] == null)
                     {
-                        map[i,j] = ob.get(i, j);
+                        map[x,y] = ob.get(i, j);
+                        map[x,y].x = x;
+                        map[x,y].x = y;
                     }
                 }
             }
@@ -127,10 +131,9 @@ public class BoardManager : MonoBehaviour
                     int y = ob.getRelY() + i;
                     occupied[i,j] = true;
 
-                    if (map[i,j] == null)
-                    {
-                        map[i,j] = ob.get(i, j);
-                    }
+                    map[x,y] = ob.get(i, j);
+                    map[x,y].x = x;
+                    map[x,y].x = y;
                 }
             }
         }
