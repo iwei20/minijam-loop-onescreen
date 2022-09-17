@@ -92,8 +92,23 @@ namespace TarodevController {
 
             // The rest
             _colUp = RunDetection(_raysUp);
-            _colLeft = RunDetection(_raysLeft);
-            _colRight = RunDetection(_raysRight);
+
+            // The walls
+            var leftCheck = RunDetection(_raysLeft);
+            if (_colLeft && !leftCheck) _timeLeftGrounded = Time.time; // Only trigger when first leaving
+            else if (!_colLeft && leftCheck) {
+                _coyoteUsable = true; // Only trigger when first touching
+                LandingThisFrame = true;
+            }
+            _colLeft = leftCheck;
+
+            var rightCheck = RunDetection(_raysRight);
+            if (_colRight && !rightCheck) _timeLeftGrounded = Time.time; // Only trigger when first leaving
+            else if (!_colRight && rightCheck) {
+                _coyoteUsable = true; // Only trigger when first touching
+                LandingThisFrame = true;
+            }
+            _colRight = rightCheck;
 
             bool RunDetection(RayRange range) {
                 return EvaluateRayPositions(range).Any(point => Physics2D.Raycast(point, range.Dir, _detectionRayLength, _groundLayer));
@@ -214,7 +229,7 @@ namespace TarodevController {
         private bool _endedJumpEarly = true;
         private float _apexPoint; // Becomes 1 at the apex of a jump
         private float _lastJumpPressed;
-        private bool CanUseCoyote => _coyoteUsable && !_colDown && _timeLeftGrounded + _coyoteTimeThreshold > Time.time;
+        private bool CanUseCoyote => _coyoteUsable && !_colDown && !_colLeft && !_colRight && _timeLeftGrounded + _coyoteTimeThreshold > Time.time;
         private bool HasBufferedJump => _colDown && _lastJumpPressed + _jumpBuffer > Time.time;
 
         private void CalculateJumpApex() {
