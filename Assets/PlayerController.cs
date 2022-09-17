@@ -22,11 +22,15 @@ namespace TarodevController {
 
         private Vector3 _lastPosition;
         private float _currentHorizontalSpeed, _currentVerticalSpeed;
+        private AudioSource jumpSound;
 
         // This is horrible, but for some reason colliders are not fully established when update starts...
         private bool _active;
         void Awake() => Invoke(nameof(Activate), 0.5f);
-        void Activate() =>  _active = true;
+        void Activate(){
+            _active = true;
+            jumpSound = GetComponent<AudioSource>();
+        }  
         
         private void Update() {
             if(!_active) return;
@@ -247,6 +251,7 @@ namespace TarodevController {
         private void CalculateJump() {
             // Jump if: grounded or within coyote threshold || sufficient jump buffer
             if (Input.JumpDown && CanUseCoyote || HasBufferedJump) {
+                jumpSound.Play();
                 _currentVerticalSpeed = _jumpHeight;
                 _endedJumpEarly = false;
                 _coyoteUsable = false;
