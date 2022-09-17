@@ -70,6 +70,18 @@ public class BoardManager : MonoBehaviour
 
     public void turn(int unforcedSpawn, int forcedSafeSpawn, int forcedUnsafeSpawn)
     {
+        (int, int) portalPosition = (Random.Range(0, MAP_SIZE), Random.Range(0, MAP_SIZE));
+        /*
+        for (int i = 0; i < MAP_SIZE; ++i) 
+        {
+            for(int j = 0; j < MAP_SIZE; ++j)
+            {
+                int portalX = (portalPosition.Item1 + i) % MAP_SIZE;
+                int portalY = (portalPosition.Item2 + j) % MAP_SIZE;
+
+
+            }
+        }*/
         for (int spawns = 0; spawns < unforcedSpawn; spawns++)
         {
             Obstacle ob = obstacles[Random.Range(0, OBSTACLE_AMOUNT)];
