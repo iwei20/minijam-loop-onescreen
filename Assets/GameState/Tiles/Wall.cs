@@ -9,7 +9,7 @@ public class Wall : Tile
         base.tag = "wall";
     }	
 
-    public override void onCollision() {}
+    public override void onCollision(BoardManager bm) {}
 
     public override bool passable() { return false; }
 }
