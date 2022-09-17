@@ -34,6 +34,40 @@ public class BoardManager : MonoBehaviour
         return map;
     }
 
+    
+    public bool canFindSafePath(int x, int y, int endx, int endy) 
+    {
+        bool[,] visited = new bool[MAP_SIZE, MAP_SIZE];
+        Stack<Tuple<int, int>> dfs = new Stack<Tuple<int, int>>();
+
+        int[] dx = {1, 0, -1, 0};
+        int[] dy = {0, 1, 0, -1};
+
+        visited[x][y] = true;
+        dfs.Push((x, y));
+        while (dfs.Count > 0) 
+        {
+            Tuple<int, int> curr = dfs.Pop();
+            if (curr.Item1 == endx && curr.Item2 == endy) 
+            {
+                return true;
+            }
+            
+            for (int i = 0; i < 4; ++i) 
+            {   
+                int newX = (curr.Item1 + dx[i]) % MAP_SIZE;
+                int newY = (curr.Item2 + dy[i]) % MAP_SIZE;
+
+                if (!visited[newX,newY]) 
+                {
+                    dfs.Push((newX, newY))
+                    visited[newX,newY] = true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void turn(int unforcedSpawn, int forcedSafeSpawn, int forcedUnsafeSpawn)
     {
         for (int spawns = 0; spawns < unforcedSpawn; spawns++)
